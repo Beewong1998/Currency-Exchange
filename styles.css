@@ -73,6 +73,7 @@ i:active {
 .fa-gear {
     float: right;
     margin-right: 8px;
+    margin-top: 5px;
 }
 
 .fa-gear:hover {

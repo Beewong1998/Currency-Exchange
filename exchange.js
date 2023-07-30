@@ -6,18 +6,6 @@ document.addEventListener("DOMContentLoaded", function(){
     const currencyWant = document.getElementById("currencyWant");
     const convert = document.getElementById("convert");
     const result = document.getElementById("result");
-    const copy = document.querySelector(".fa-copy");
-    const settings = document.querySelector(".fa-gear");
-    const modal = document.getElementById("myModal");
-    const span = document.getElementsByClassName("close")[0];
-    const setting_colour_background = document.getElementById("setting-colour-background");
-    const setting_colour_title = document.getElementById("setting-colour-title");
-    const confirm = document.querySelector(".confirm");
-    let title = document.querySelector(".main-title");
-    
-
-    
-    
     const apiKey = "GYizENZpODSZp7Ere2EzMA==dKnrO9ueAXeoBfwz";
     const apiUrl = "https://api.api-ninjas.com/v1/convertcurrency?";
     
@@ -50,10 +38,15 @@ document.addEventListener("DOMContentLoaded", function(){
         navigator.clipboard.writeText(result.value);
     })
 
+
+    const copy = document.querySelector(".fa-copy");
+
     copy.addEventListener('click', () => {
         result.select();
         navigator.clipboard.writeText(result.value);
     })
+
+
 
     amount.addEventListener('keypress', function(event) {   //if my keypress is Enter, convert is clicked
         if (event.key === "Enter") {
@@ -62,17 +55,35 @@ document.addEventListener("DOMContentLoaded", function(){
         }
     })
 
+
+
     amount.addEventListener('click', ()=>{   //clicking textbox selects all text making it easier to delete
         amount.select();
     })
+
+
+
+    const settings = document.querySelector(".fa-gear");
+    const modal = document.getElementById("myModal");
 
     settings.addEventListener('click', () => {
         modal.style.display = "block";
     })
 
+
+
+    const span = document.getElementsByClassName("close")[0];
+
     span.addEventListener('click', () => {
         modal.style.display = "none";
     })
+
+
+
+    const setting_colour_background = document.getElementById("setting-colour-background");
+    const setting_colour_title = document.getElementById("setting-colour-title");
+    const confirm = document.querySelector(".confirm");
+    let title = document.querySelector(".main-title"); 
 
     confirm.addEventListener('click', () => {
         const colour = setting_colour_background.value;
@@ -81,7 +92,34 @@ document.addEventListener("DOMContentLoaded", function(){
         title.style.color = titleColour;
         modal.style.display = "none";
         result.style.backgroundColor = colour;
+        document.querySelector('.one').style.color = titleColour;
+        document.querySelector('.two').style.color = titleColour;
+        localStorage.setItem('bg_colour', colour);
+        localStorage.setItem('title_colour', titleColour);
     })
+
+    if (!localStorage.getItem('bg_colour')){
+        document.body.style.backgroundColor = "lightblue";
+        result.style.backgroundColor = "lightblue";
+        document.querySelector('#setting-colour-background').value = "lightblue";
+    } else {
+        document.body.style.backgroundColor = localStorage.getItem('bg_colour');
+        result.style.backgroundColor = localStorage.getItem('bg_colour');
+        document.querySelector('#setting-colour-background').value = localStorage.getItem('bg_colour');
+    }
+
+    if (!localStorage.getItem('title_colour')){
+        title.style.color = "black";
+        document.querySelector('#setting-colour-background').value = "black";
+        document.querySelector('#setting-colour-title').value = "black";
+        document.querySelector('.one').style.color = "black";
+        document.querySelector('.two').style.color = "black";
+    } else {
+        title.style.color = localStorage.getItem('title_colour');
+        document.querySelector('#setting-colour-title').value = localStorage.getItem('title_colour');
+        document.querySelector('.one').style.color = localStorage.getItem('title_colour');
+        document.querySelector('.two').style.color = localStorage.getItem('title_colour');
+    }
 
 
 })
